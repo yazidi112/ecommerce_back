@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Article
 {
     /**
-     * @Groups({"article-read"})
+     * @Groups({"article-read","commande-read"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -30,13 +30,13 @@ class Article
     private $id;
 
     /**
-     * @Groups({"article-read"})
+     * @Groups({"article-read","commande-read"})
      * @ORM\Column(type="string", length=255)
      */
     private $titre;
 
     /**
-     * @Groups({"article-read"})
+     * @Groups({"article-read","commande-read"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;

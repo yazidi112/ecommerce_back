@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\LignecommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=LignecommandeRepository::class)
@@ -12,6 +15,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 class Lignecommande
 {
     /**
+     * @Groups({"commande-read"})
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,20 +23,29 @@ class Lignecommande
     private $id;
 
     /**
+     * @Groups({"commande-read"})
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="lignecommandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
 
     /**
+     * @Groups({"commande-read"})
      * @ORM\Column(type="integer")
      */
     private $quantite;
 
     /**
+     * @Groups({"commande-read"})
      * @ORM\Column(type="float")
      */
     private $prix;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="lignecommandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commande;
 
     public function getId(): ?int
     {
@@ -71,6 +84,18 @@ class Lignecommande
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }
